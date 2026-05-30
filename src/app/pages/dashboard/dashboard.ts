@@ -36,13 +36,19 @@ export class Dashboard {
       rival: 'Independiente del Valle',
       lugar: 'Local',
       resultado: '-',
+    },
+    {
+      fecha: '2026-06-09',
+      rival: 'LDU Quito',
+      lugar: 'Visita',
+      resultado: '-',
     }
   ];
   ultimosJugadores = [
     {
       nombre: 'Fidel Martínez',
-      posicion: 'Delantero izquierdo',
-      dorsal: 10
+      posicion: 'Extremo izquierdo',
+      dorsal: 7
     },
     {
       nombre: 'Gonzalo Mastriani',
@@ -53,6 +59,11 @@ export class Dashboard {
       nombre: 'Fernando Gaibor',
       posicion: 'Mediocampista central',
       dorsal: 8
+    },
+    {
+      nombre: 'Lionel Messi',
+      posicion: 'Extremo derecho',
+      dorsal: 10
     }
   ];
 }
