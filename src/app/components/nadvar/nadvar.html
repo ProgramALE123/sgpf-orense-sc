@@ -1,10 +1,9 @@
-<!-- Desktop Sidebar (always visible on lg+) -->
 <aside class="sidebar bg-sidebar d-none d-lg-flex">
   <ng-container *ngTemplateOutlet="sidebarContent"></ng-container>
   <ng-container *ngTemplateOutlet="sidebarFooter"></ng-container>
 </aside>
 
-<!-- Mobile Offcanvas Sidebar -->
+
 <div
   #offcanvasSidebar
   class="offcanvas offcanvas-start d-lg-none"
@@ -28,7 +27,6 @@
   </div>
 </div>
 
-<!-- Mobile Top Bar -->
 <div class="mobile-topbar d-lg-none">
   <button class="btn btn-link text-gold p-0" (click)="openMobile()" aria-label="Abrir menú">
     <i class="bi bi-list fs-3"></i>
@@ -36,7 +34,6 @@
   <span class="text-gold fw-bold">SGPF Orense SC</span>
 </div>
 
-<!-- Shared Sidebar Content Template -->
 <ng-template #sidebarContent>
   <div class="sidebar-brand">
     <div class="brand-icon">
