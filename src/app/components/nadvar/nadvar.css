@@ -13,7 +13,7 @@
   border-bottom: 1px solid var(--border-color);
 }
 
-/* Desktop Sidebar */
+
 .sidebar {
   position: fixed;
   top: 0;
@@ -26,14 +26,14 @@
   overflow-y: auto;
 }
 
-/* Offcanvas dark theme overrides */
+
 .offcanvas {
   background-color: var(--bg-sidebar);
   color: var(--text-primary);
   max-width: 250px;
 }
 
-/* Brand */
+
 .sidebar-brand {
   display: flex;
   align-items: center;
@@ -80,7 +80,7 @@
   letter-spacing: 1px;
 }
 
-/* User info */
+
 .sidebar-user {
   display: flex;
   align-items: center;
@@ -114,7 +114,7 @@
   text-overflow: ellipsis;
 }
 
-/* Nav */
+
 .sidebar-nav {
   flex: 1;
   padding: 0.75rem 0;
@@ -148,7 +148,7 @@
   text-align: center;
 }
 
-/* Footer */
+
 .sidebar-footer {
   padding: 0.75rem 1rem;
   border-top: 1px solid var(--border-color);
@@ -174,7 +174,7 @@
   color: #fff;
 }
 
-/* Utility */
+
 .bg-gold {
   background-color: #d4a843 !important;
   color: #000 !important;
