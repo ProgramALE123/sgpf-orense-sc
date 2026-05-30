@@ -1,1 +1,123 @@
-<p>dashboard works!</p>
+<div class="container-fluid bg-light min-vh-100 p-4">
+
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="fw-bold text-uppercase mb-1 text-success">
+                    Panel de inicio
+                </h2>
+                <p class="text-muted mb-0">
+                    S.G.P.F. Orense SC - Sistema de Gestión de Plantilla de Fútbol
+                </p>
+            </div>
+
+            <button class="btn btn-success">
+        Cerrar sesión
+      </button>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="card border-0 shadow-sm h-100 card-resumen">
+                <div class="card-body">
+                    <p class="text-muted text-uppercase mb-2">Total jugadores</p>
+                    <h1 class="fw-bold text-success mb-0">{{ totalJugadores }}</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="card border-0 shadow-sm h-100 card-resumen">
+                <div class="card-body">
+                    <p class="text-muted text-uppercase mb-2">Total entrenadores</p>
+                    <h1 class="fw-bold text-success mb-0">{{ totalEntrenadores }}</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="card border-0 shadow-sm h-100 card-resumen">
+                <div class="card-body">
+                    <p class="text-muted text-uppercase mb-2">Partidos registrados</p>
+                    <h1 class="fw-bold text-success mb-0">{{ totalPartidos }}</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="card border-0 shadow-sm h-100 card-resumen">
+                <div class="card-body">
+                    <p class="text-muted text-uppercase mb-2">Alineaciones guardadas</p>
+                    <h1 class="fw-bold text-success mb-0">{{ totalAlineaciones }}</h1>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-12 col-lg-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-bold text-uppercase text-success mb-3">
+                        Últimos partidos
+                    </h5>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-success">
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Rival</th>
+                                    <th>Lugar</th>
+                                    <th>Resultado</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr *ngFor="let partido of ultimosPartidos">
+                                    <td>{{ partido.fecha }}</td>
+                                    <td>{{ partido.rival }}</td>
+                                    <td>{{ partido.lugar }}</td>
+                                    <td>
+                                        <span class="badge bg-success">
+                      {{ partido.resultado }}
+                    </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-bold text-uppercase text-success mb-3">
+                        Últimos jugadores
+                    </h5>
+
+                    <div class="d-flex justify-content-between align-items-center border rounded p-3 mb-3" *ngFor="let jugador of ultimosJugadores">
+                        <div>
+                            <h6 class="fw-bold mb-1">{{ jugador.nombre }}</h6>
+                            <small class="text-muted">{{ jugador.posicion }}</small>
+                        </div>
+
+                        <span class="badge bg-warning text-dark rounded-pill">
+              #{{ jugador.dorsal }}
+            </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
