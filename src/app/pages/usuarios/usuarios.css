@@ -1,0 +1,53 @@
+.toolbar {
+  background: var(--bg-card);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.table {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+.table > :not(caption) > * > * {
+  border-bottom-color: var(--border-color);
+}
+.table thead th {
+  background-color: var(--bg-sidebar);
+  color: var(--primary-gold);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+}
+.table tbody tr:hover {
+  background-color: rgba(212, 168, 67, 0.05);
+}
+
+.avatar-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.bg-gold {
+  background-color: #d4a843;
+  color: #000;
+}
+
+.modal-content {
+  border-radius: 12px;
+}
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.form-select option {
+  background-color: #1a1a1a;
+  color: #e8e8e8;
+}
