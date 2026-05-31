@@ -15,3 +15,37 @@
     text-transform: uppercase;
     font-size: 13px;
 }
+
+
+/* Badge condición visitante */
+
+.condicion-visitante {
+    background-color: #b59a52 !important;
+    color: #fff !important;
+}
+
+
+/* Bloque de fecha en próximos partidos */
+
+.proximo-partido-item {
+    background-color: #edf2ee;
+    border-left: 4px solid #123d25;
+}
+
+.fecha-bloque {
+    min-width: 46px;
+    flex-shrink: 0;
+}
+
+.fecha-bloque .dia {
+    font-size: 22px;
+    color: #123d25;
+    line-height: 1;
+}
+
+.fecha-bloque .mes {
+    font-size: 12px;
+    color: #b59a52;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
