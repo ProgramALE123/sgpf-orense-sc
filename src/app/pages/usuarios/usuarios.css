@@ -1,28 +1,70 @@
-.toolbar {
-  background: var(--bg-card);
-  padding: 1rem;
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
+.usuarios-container {
+  min-height: 100vh;
+  padding: 30px;
+  background-color: #edf2ee;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+  background-color: #ffffff;
+  padding: 22px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  margin: 0;
+  color: #123d25;
+  font-size: 28px;
+  text-transform: uppercase;
+}
+
+.header p {
+  margin: 6px 0 0;
+  color: #6b6b6b;
+  font-size: 14px;
+}
+
+.toolbar-card {
+  background-color: #ffffff;
+  padding: 22px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.table-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 22px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
 }
 
 .table {
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid var(--border-color);
+  margin-bottom: 0;
 }
-.table > :not(caption) > * > * {
-  border-bottom-color: var(--border-color);
-}
+
 .table thead th {
-  background-color: var(--bg-sidebar);
-  color: var(--primary-gold);
+  background-color: #123d25;
+  color: #fff;
   font-weight: 600;
   text-transform: uppercase;
-  font-size: 0.8rem;
-  letter-spacing: 0.5px;
+  font-size: 13px;
+  border-bottom: none;
+  vertical-align: middle;
 }
+
+.table tbody td {
+  vertical-align: middle;
+  color: #333;
+}
+
 .table tbody tr:hover {
-  background-color: rgba(212, 168, 67, 0.05);
+  background-color: #edf2ee;
 }
 
 .avatar-circle {
@@ -34,20 +76,10 @@
   justify-content: center;
   font-weight: 700;
   font-size: 0.85rem;
+  background-color: #198754;
+  color: #fff;
 }
 
-.bg-gold {
-  background-color: #d4a843;
-  color: #000;
-}
-
-.modal-content {
-  border-radius: 12px;
-}
-.modal-backdrop {
-  background-color: rgba(0, 0, 0, 0.6);
-}
-.form-select option {
-  background-color: #1a1a1a;
-  color: #e8e8e8;
+.empty-state {
+  color: #6b6b6b;
 }
