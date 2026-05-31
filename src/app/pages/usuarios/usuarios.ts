@@ -171,8 +171,8 @@ export class Usuarios implements OnInit, AfterViewInit, OnDestroy {
 
   getRoleBadgeClass(role: UserRole): string {
     const classes: Record<UserRole, string> = {
-      presidente: 'bg-gold',
-      director_tecnico: 'bg-info',
+      presidente: 'bg-warning text-dark',
+      director_tecnico: 'bg-primary',
       secretario_tecnico: 'bg-secondary',
     };
     return classes[role];
