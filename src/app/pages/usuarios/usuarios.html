@@ -2,8 +2,8 @@
   <h1 class="page-title"><i class="bi bi-people-fill me-2"></i>Gestión de Usuarios y Roles</h1>
 </div>
 
-<div class="content px-4">
-  
+<div class="content px-4 pb-4">
+
   <div *ngIf="successMsg()" class="alert alert-success alert-dismissible fade show" role="alert">
     <i class="bi bi-check-circle-fill me-1"></i>{{ successMsg() }}
     <button type="button" class="btn-close" data-bs-dismiss="alert" (click)="successMsg.set('')"></button>
@@ -15,24 +15,23 @@
 
   <div class="toolbar d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
     <div class="input-group" style="max-width: 320px">
-      <span class="input-group-text bg-dark text-muted-custom border-custom">
+      <span class="input-group-text bg-white">
         <i class="bi bi-search"></i>
       </span>
       <input
         type="text"
-        class="form-control bg-dark text-light border-custom"
+        class="form-control"
         placeholder="Buscar usuario..."
         [(ngModel)]="searchTerm"
       />
     </div>
-    <button class="btn btn-gold" (click)="openCreate()">
+    <button class="btn btn-success" (click)="openCreate()">
       <i class="bi bi-plus-lg me-1"></i>Nuevo Usuario
     </button>
   </div>
 
-  
   <div class="table-responsive">
-    <table class="table table-dark table-hover align-middle">
+    <table class="table table-hover align-middle">
       <thead>
         <tr>
           <th>Usuario</th>
@@ -46,7 +45,7 @@
         <tr *ngFor="let user of filteredUsers">
           <td>
             <div class="d-flex align-items-center gap-2">
-              <div class="avatar-circle bg-secondary text-white">
+              <div class="avatar-circle bg-success text-white">
                 {{ user.nombre.charAt(0).toUpperCase() }}
               </div>
               <span>{{ user.username }}</span>
@@ -64,7 +63,7 @@
             </span>
           </td>
           <td class="text-end">
-            <button class="btn btn-sm btn-outline-light me-1" (click)="openEdit(user)" title="Editar usuario">
+            <button class="btn btn-sm btn-outline-secondary me-1" (click)="openEdit(user)" title="Editar usuario">
               <i class="bi bi-pencil-fill"></i>
             </button>
             <button class="btn btn-sm btn-outline-danger" (click)="confirmDelete(user)" title="Eliminar usuario">
@@ -74,7 +73,7 @@
         </tr>
       </tbody>
     </table>
-    <div *ngIf="filteredUsers.length === 0" class="text-center py-5 text-muted-custom">
+    <div *ngIf="filteredUsers.length === 0" class="text-center py-5 text-muted">
       <i class="bi bi-inbox display-4 d-block mb-2"></i>
       No se encontraron usuarios
     </div>
@@ -90,13 +89,13 @@
   aria-hidden="true"
 >
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content bg-card text-light border-custom">
-      <div class="modal-header border-custom">
+    <div class="modal-content">
+      <div class="modal-header">
         <h1 class="modal-title fs-5" id="editModalTitle">
           <i class="bi" [class.bi-person-plus-fill]="!editingUser()" [class.bi-pencil-fill]="editingUser()"></i>
           {{ editingUser() ? 'Editar Usuario' : 'Nuevo Usuario' }}
         </h1>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
         <div class="mb-3">
@@ -105,24 +104,24 @@
             #nameInput
             type="text"
             id="inputNombre"
-            class="form-control bg-dark text-light border-custom"
+            class="form-control"
             [(ngModel)]="form.nombre"
             placeholder="Nombre y apellido"
           />
         </div>
         <div class="mb-3">
           <label for="inputUsername" class="form-label">Usuario</label>
-          <input type="text" id="inputUsername" class="form-control bg-dark text-light border-custom" [(ngModel)]="form.username" placeholder="Nombre de usuario" />
+          <input type="text" id="inputUsername" class="form-control" [(ngModel)]="form.username" placeholder="Nombre de usuario" />
         </div>
         <div class="mb-3">
           <label for="inputPassword" class="form-label">
             {{ editingUser() ? 'Nueva contraseña (dejar vacío para mantener)' : 'Contraseña' }}
           </label>
-          <input type="password" id="inputPassword" class="form-control bg-dark text-light border-custom" [(ngModel)]="form.password" placeholder="Contraseña" autocomplete="new-password" />
+          <input type="password" id="inputPassword" class="form-control" [(ngModel)]="form.password" placeholder="Contraseña" autocomplete="new-password" />
         </div>
         <div class="mb-3">
           <label for="inputRole" class="form-label">Rol</label>
-          <select id="inputRole" class="form-select bg-dark text-light border-custom" [(ngModel)]="form.role">
+          <select id="inputRole" class="form-select" [(ngModel)]="form.role">
             <option *ngFor="let r of roles" [value]="r.value">{{ r.label }}</option>
           </select>
         </div>
@@ -134,9 +133,9 @@
           <i class="bi bi-exclamation-triangle-fill me-1"></i>{{ errorMsg() }}
         </div>
       </div>
-      <div class="modal-footer border-custom">
-        <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-gold" (click)="save()">
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-success" (click)="save()">
           {{ editingUser() ? 'Guardar Cambios' : 'Crear Usuario' }}
         </button>
       </div>
@@ -144,7 +143,7 @@
   </div>
 </div>
 
-
+<!-- Delete Confirmation Modal -->
 <div
   #deleteModal
   class="modal fade"
@@ -153,19 +152,19 @@
   aria-hidden="true"
 >
   <div class="modal-dialog modal-dialog-centered modal-sm">
-    <div class="modal-content bg-card text-light border-custom">
-      <div class="modal-header border-custom">
+    <div class="modal-content">
+      <div class="modal-header">
         <h1 class="modal-title fs-5" id="deleteModalTitle">
           <i class="bi bi-exclamation-triangle-fill text-danger me-1"></i>Confirmar eliminación
         </h1>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
         <p class="mb-1">¿Está seguro de eliminar al usuario <strong>{{ deletingUser()?.nombre }}</strong>?</p>
-        <p class="text-muted-custom small mb-0">Esta acción no se puede deshacer.</p>
+        <p class="text-muted small mb-0">Esta acción no se puede deshacer.</p>
       </div>
-      <div class="modal-footer border-custom">
-        <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-danger" (click)="deleteUser()">
           <i class="bi bi-trash-fill me-1"></i>Eliminar
         </button>

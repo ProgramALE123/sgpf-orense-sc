@@ -1,28 +1,51 @@
+:host {
+  display: block;
+  background: #fff;
+  min-height: 100vh;
+  color: #212529;
+}
+
+.page-header {
+  background: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  padding: 1.5rem 2rem;
+  margin-bottom: 1.5rem;
+}
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #198754;
+  margin: 0;
+}
+
 .toolbar {
-  background: var(--bg-card);
+  background: #f8f9fa;
   padding: 1rem;
   border-radius: 8px;
-  border: 1px solid var(--border-color);
+  border: 1px solid #dee2e6;
 }
 
 .table {
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid var(--border-color);
-}
-.table > :not(caption) > * > * {
-  border-bottom-color: var(--border-color);
+  border: 1px solid #dee2e6;
+  background: #fff;
 }
 .table thead th {
-  background-color: var(--bg-sidebar);
-  color: var(--primary-gold);
+  background-color: #198754;
+  color: #fff;
   font-weight: 600;
   text-transform: uppercase;
   font-size: 0.8rem;
   letter-spacing: 0.5px;
+  border-bottom: none;
+}
+.table tbody td {
+  vertical-align: middle;
+  color: #212529;
 }
 .table tbody tr:hover {
-  background-color: rgba(212, 168, 67, 0.05);
+  background-color: rgba(25, 135, 84, 0.05);
 }
 
 .avatar-circle {
@@ -36,18 +59,6 @@
   font-size: 0.85rem;
 }
 
-.bg-gold {
-  background-color: #d4a843;
-  color: #000;
-}
-
 .modal-content {
   border-radius: 12px;
-}
-.modal-backdrop {
-  background-color: rgba(0, 0, 0, 0.6);
-}
-.form-select option {
-  background-color: #1a1a1a;
-  color: #e8e8e8;
 }
