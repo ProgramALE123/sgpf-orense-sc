@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Jugador, JugadoresService } from '../../services/jugadores';
 @Component({
   selector: 'app-dashboard',
   imports: [CommonModule],
@@ -7,63 +8,46 @@ import { CommonModule } from '@angular/common';
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
-  totalJugadores: number = 18;
+   totalJugadores: number = 0;
   totalEntrenadores: number = 5;
   totalPartidos: number = 8;
   totalAlineaciones: number = 0;
 
-  ultimosPartidos =[
+  ultimosJugadores: Jugador[] = [];
+
+  ultimosPartidos = [
     {
       fecha: '2026-05-12',
       rival: 'Aucas',
       lugar: 'Visita',
-      resultado: '2-1',
+      resultado: '2-0'
     },
     {
       fecha: '2026-05-19',
-      rival: 'Barcelona',
+      rival: 'Independiente del Valle',
       lugar: 'Local',
-      resultado: '1-1',
+      resultado: '1-1'
     },
     {
       fecha: '2026-05-26',
-      rival: 'Emelec',
+      rival: 'El Nacional',
       lugar: 'Visita',
-      resultado: '-',
+      resultado: '-'
     },
     {
       fecha: '2026-06-02',
-      rival: 'Independiente del Valle',
+      rival: 'Delfín SC',
       lugar: 'Local',
-      resultado: '-',
-    },
-    {
-      fecha: '2026-06-09',
-      rival: 'LDU Quito',
-      lugar: 'Visita',
-      resultado: '-',
+      resultado: '-'
     }
   ];
-  ultimosJugadores = [
-    {
-      nombre: 'Fidel Martínez',
-      posicion: 'Extremo izquierdo',
-      dorsal: 7
-    },
-    {
-      nombre: 'Gonzalo Mastriani',
-      posicion: 'Delantero centro',
-      dorsal: 9
-    },
-    {
-      nombre: 'Fernando Gaibor',
-      posicion: 'Mediocampista central',
-      dorsal: 8
-    },
-    {
-      nombre: 'Lionel Messi',
-      posicion: 'Extremo derecho',
-      dorsal: 10
-    }
-  ];
+
+  constructor(private jugadoresService: JugadoresService) {
+    this.cargarDatos();
+  }
+
+  cargarDatos(): void {
+    this.totalJugadores = this.jugadoresService.obtenerTotalJugadores();
+    this.ultimosJugadores = this.jugadoresService.obtenerUltimosJugadores();
+  }
 }
