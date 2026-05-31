@@ -1,1 +1,143 @@
-<p>jugadores works!</p>
+<div class="jugadores-container">
+
+  <div class="header">
+    <div>
+      <h1>Gestión de jugadores</h1>
+      <p>Registro y administración de jugadores de la plantilla principal.</p>
+    </div>
+
+    <button class="btn btn-success" (click)="abrirFormulario()">
+      Nuevo jugador
+    </button>
+  </div>
+
+  <div class="formulario-card" *ngIf="mostrarFormulario">
+    <h3>{{ editando ? 'Editar jugador' : 'Registrar jugador' }}</h3>
+
+    <form>
+      <div class="row g-3">
+
+        <div class="col-md-6">
+          <label>Nombres</label>
+          <input type="text" class="form-control" [(ngModel)]="jugador.nombres" name="nombres">
+        </div>
+
+        <div class="col-md-6">
+          <label>Apellidos</label>
+          <input type="text" class="form-control" [(ngModel)]="jugador.apellidos" name="apellidos">
+        </div>
+
+        <div class="col-md-4">
+          <label>Edad</label>
+          <input type="number" class="form-control" [(ngModel)]="jugador.edad" name="edad">
+        </div>
+
+        <div class="col-md-4">
+          <label>Posición</label>
+          <input type="text" class="form-control" [(ngModel)]="jugador.posicion" name="posicion">
+        </div>
+
+        <div class="col-md-4">
+          <label>Número de camiseta</label>
+          <input type="number" class="form-control" [(ngModel)]="jugador.camiseta" name="camiseta">
+        </div>
+
+        <div class="col-md-4">
+          <label>Estatura</label>
+          <input type="number" class="form-control" [(ngModel)]="jugador.estatura" name="estatura">
+        </div>
+
+        <div class="col-md-4">
+          <label>Peso</label>
+          <input type="number" class="form-control" [(ngModel)]="jugador.peso" name="peso">
+        </div>
+
+        <div class="col-md-4">
+          <label>URL de foto</label>
+          <input type="text" class="form-control" [(ngModel)]="jugador.foto" name="foto">
+        </div>
+
+      </div>
+
+      <div class="botones-formulario">
+        <button type="button" class="btn btn-success" (click)="guardarJugador()">
+          {{ editando ? 'Guardar cambios' : 'Guardar jugador' }}
+        </button>
+
+        <button type="button" class="btn btn-secondary" (click)="cerrarFormulario()">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="jugadores-grid">
+    <div class="jugador-card" *ngFor="let jugador of jugadores; let i = index">
+
+      <div class="foto-container">
+        <img [src]="jugador.foto" alt="Foto del jugador">
+      </div>
+
+      <div class="jugador-info">
+        <h3>{{ jugador.nombres }} {{ jugador.apellidos }}</h3>
+        <p>{{ jugador.posicion }}</p>
+
+        <div class="datos-rapidos">
+          <span>#{{ jugador.camiseta }}</span>
+          <span>{{ jugador.edad }} años</span>
+        </div>
+      </div>
+
+      <div class="acciones">
+        <button class="btn btn-outline-success btn-sm" (click)="verMas(jugador)">
+          Ver más
+        </button>
+
+        <button class="btn btn-warning btn-sm" (click)="editarJugador(i)">
+          Editar
+        </button>
+
+        <button class="btn btn-danger btn-sm" (click)="eliminarJugador(i)">
+          Eliminar
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="detalle-fondo" *ngIf="mostrarDetalle && jugadorSeleccionado">
+    <div class="detalle-card">
+
+      <button class="cerrar" (click)="cerrarDetalle()">×</button>
+
+      <img [src]="jugadorSeleccionado.foto" alt="Foto del jugador">
+
+      <h2>{{ jugadorSeleccionado.nombres }} {{ jugadorSeleccionado.apellidos }}</h2>
+      <p class="posicion">{{ jugadorSeleccionado.posicion }}</p>
+
+      <div class="detalle-grid">
+        <div>
+          <strong>Edad</strong>
+          <span>{{ jugadorSeleccionado.edad }} años</span>
+        </div>
+
+        <div>
+          <strong>Camiseta</strong>
+          <span>#{{ jugadorSeleccionado.camiseta }}</span>
+        </div>
+
+        <div>
+          <strong>Estatura</strong>
+          <span>{{ jugadorSeleccionado.estatura }} cm</span>
+        </div>
+
+        <div>
+          <strong>Peso</strong>
+          <span>{{ jugadorSeleccionado.peso }} kg</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
