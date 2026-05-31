@@ -12,7 +12,7 @@ private jugadores: Jugador[] = [
     posicion: 'Delantero',
     estatura: 175,
     peso: 72,
-    camiseta: 10,
+    camiseta: 51,
     foto: 'https://ui-avatars.com/api/?name=Fidel+Martinez&background=123d25&color=fff'
   },
   {
@@ -34,7 +34,127 @@ private jugadores: Jugador[] = [
     peso: 80,
     camiseta: 24,
     foto: 'https://ui-avatars.com/api/?name=Gabriel+Achilier&background=123d25&color=fff'
-  }
+  },
+  {
+  nombres: 'Lionel',
+  apellidos: 'Messi',
+  edad: 38,
+  posicion: 'Extremo derecho',
+  estatura: 170,
+  peso: 72,
+  camiseta: 10,
+  foto: 'https://ui-avatars.com/api/?name=Lionel+Messi&background=123d25&color=fff'
+},
+{
+  nombres: 'Cristiano',
+  apellidos: 'Ronaldo',
+  edad: 41,
+  posicion: 'Delantero centro',
+  estatura: 187,
+  peso: 83,
+  camiseta: 7,
+  foto: 'https://ui-avatars.com/api/?name=Cristiano+Ronaldo&background=123d25&color=fff'
+},
+{
+  nombres: 'Kylian',
+  apellidos: 'Mbappé',
+  edad: 27,
+  posicion: 'Extremo izquierdo',
+  estatura: 178,
+  peso: 75,
+  camiseta: 9,
+  foto: 'https://ui-avatars.com/api/?name=Kylian+Mbappe&background=123d25&color=fff'
+},
+{
+  nombres: 'Erling',
+  apellidos: 'Haaland',
+  edad: 25,
+  posicion: 'Delantero centro',
+  estatura: 194,
+  peso: 88,
+  camiseta: 11,
+  foto: 'https://ui-avatars.com/api/?name=Erling+Haaland&background=123d25&color=fff'
+},
+{
+  nombres: 'Kevin',
+  apellidos: 'De Bruyne',
+  edad: 34,
+  posicion: 'Mediocampista ofensivo',
+  estatura: 181,
+  peso: 70,
+  camiseta: 17,
+  foto: 'https://ui-avatars.com/api/?name=Kevin+De+Bruyne&background=123d25&color=fff'
+},
+{
+  nombres: 'Luka',
+  apellidos: 'Modrić',
+  edad: 40,
+  posicion: 'Mediocampista central',
+  estatura: 172,
+  peso: 66,
+  camiseta: 8,
+  foto: 'https://ui-avatars.com/api/?name=Luka+Modric&background=123d25&color=fff'
+},
+{
+  nombres: 'Neymar',
+  apellidos: 'Júnior',
+  edad: 34,
+  posicion: 'Mediapunta',
+  estatura: 175,
+  peso: 68,
+  camiseta:  69,
+  foto: 'https://ui-avatars.com/api/?name=Neymar+Junior&background=123d25&color=fff'
+},
+{
+  nombres: 'Virgil',
+  apellidos: 'van Dijk',
+  edad: 34,
+  posicion: 'Defensa central',
+  estatura: 195,
+  peso: 92,
+  camiseta: 4,
+  foto: 'https://ui-avatars.com/api/?name=Virgil+van+Dijk&background=123d25&color=fff'
+},
+{
+  nombres: 'Sergio',
+  apellidos: 'Ramos',
+  edad: 40,
+  posicion: 'Defensa central',
+  estatura: 184,
+  peso: 82,
+  camiseta: 5,
+  foto: 'https://ui-avatars.com/api/?name=Sergio+Ramos&background=123d25&color=fff'
+},
+{
+  nombres: 'Achraf',
+  apellidos: 'Hakimi',
+  edad: 27,
+  posicion: 'Lateral derecho',
+  estatura: 181,
+  peso: 73,
+  camiseta: 2,
+  foto: 'https://ui-avatars.com/api/?name=Achraf+Hakimi&background=123d25&color=fff'
+},
+{
+  nombres: 'Alphonso',
+  apellidos: 'Davies',
+  edad: 25,
+  posicion: 'Lateral izquierdo',
+  estatura: 183,
+  peso: 75,
+  camiseta: 3,
+  foto: 'https://ui-avatars.com/api/?name=Alphonso+Davies&background=123d25&color=fff'
+},
+{
+  nombres: 'Thibaut',
+  apellidos: 'Courtois',
+  edad: 33,
+  posicion: 'Portero',
+  estatura: 200,
+  peso: 96,
+  camiseta: 1,
+  foto: 'https://i.ibb.co/HfkbnBSd/Gemini-Generated-Image-l90fjjl90fjjl90f.png'
+}
 ];
 
   obtenerJugadores(): Jugador[] {
