@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AuthService } from './core/services/auth.service';
+import { filter } from 'rxjs';
 import { Nadvar } from './components/nadvar/nadvar';
 
 @Component({
@@ -12,18 +12,15 @@ import { Nadvar } from './components/nadvar/nadvar';
   styleUrl: './app.css',
 })
 export class App {
-  private auth = inject(AuthService);
   private router = inject(Router);
 
-  get isLoggedIn(): boolean {
-    return this.auth.isLoggedIn();
-  }
+  isLoginRoute = signal(true);
 
   constructor() {
-    this.auth.getCurrentUser$().subscribe((user) => {
-      if (!user) {
-        this.router.navigate(['/']);
-      }
+    this.router.events.pipe(
+      filter(e => e instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.isLoginRoute.set(this.router.url === '/');
     });
   }
 }

@@ -44,18 +44,6 @@
     </div>
   </div>
 
-  <div class="sidebar-user" *ngIf="currentUser">
-    <div class="user-avatar" [class]="getRoleBadgeClass(currentUser.role)">
-      {{ userInitial }}
-    </div>
-    <div class="user-info">
-      <div class="user-name">{{ currentUser.nombre }}</div>
-      <span class="badge" [class]="getRoleBadgeClass(currentUser.role)">
-        {{ userRoleLabel }}
-      </span>
-    </div>
-  </div>
-
   <nav class="sidebar-nav">
     <a
       *ngFor="let item of navItems"
