@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
-import { Login } from './pages/login/login';
-import { Dashboard } from './pages/dashboard/dashboard';
-import { Jugadores } from './pages/jugadores/jugadores';
-import { Entrenadores } from './pages/entrenadores/entrenadores';
-import { Partidos } from './pages/partidos/partidos';
-import { Alineaciones } from './pages/alineaciones/alineaciones';
-import { Usuarios } from './pages/usuarios/usuarios';
+import { Login } from './components/login/login';
+import { Dashboard } from './components/dashboard/dashboard';
+import { Jugadores } from './components/jugadores/jugadores';
+import { Entrenadores } from './components/entrenadores/entrenadores';
+import { Partidos } from './components/partidos/partidos';
+import { Alineaciones } from './components/alineaciones/alineaciones';
+import { Usuarios } from './components/usuarios/usuarios';
 
 export const routes: Routes = [
   { path: '', component: Login },
