@@ -1,9 +1,34 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, inject, signal, viewChild, ElementRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../core/services/auth.service';
 import { Modal } from 'bootstrap';
-import type { User, UserRole } from '../../core/models/user.model';
+
+export type UserRole = 'presidente' | 'director_tecnico' | 'secretario_tecnico';
+
+export interface User {
+  id: string;
+  username: string;
+  password: string;
+  role: UserRole;
+  nombre: string;
+  activo: boolean;
+}
+
+const USERS_KEY = 'sgpf_users';
+
+function getUsers(): User[] {
+  const raw = localStorage.getItem(USERS_KEY);
+  if (!raw) return [];
+  try {
+    return JSON.parse(raw) as User[];
+  } catch {
+    return [];
+  }
+}
+
+function saveUsers(users: User[]): void {
+  localStorage.setItem(USERS_KEY, JSON.stringify(users));
+}
 
 @Component({
   selector: 'app-usuarios',
@@ -13,8 +38,6 @@ import type { User, UserRole } from '../../core/models/user.model';
   styleUrl: './usuarios.css',
 })
 export class Usuarios implements OnInit, AfterViewInit, OnDestroy {
-  private auth = inject(AuthService);
-
   readonly editModalEl = viewChild<ElementRef<HTMLDivElement>>('editModal');
   readonly deleteModalEl = viewChild<ElementRef<HTMLDivElement>>('deleteModal');
   readonly nameInputEl = viewChild<ElementRef<HTMLInputElement>>('nameInput');
@@ -65,7 +88,7 @@ export class Usuarios implements OnInit, AfterViewInit, OnDestroy {
   }
 
   loadUsers(): void {
-    this.users.set(this.auth.getUsers());
+    this.users.set(getUsers());
   }
 
   get filteredUsers(): User[] {
@@ -119,7 +142,6 @@ export class Usuarios implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
-    const currentUser = this.auth.getCurrentUser();
     const user: User = {
       id: this.editingUser()?.id ?? crypto.randomUUID(),
       username: this.form.username.trim(),
@@ -129,23 +151,21 @@ export class Usuarios implements OnInit, AfterViewInit, OnDestroy {
       activo: this.form.activo,
     };
 
-    this.auth.saveUser(user);
+    const users = getUsers();
+    const idx = users.findIndex((u) => u.id === user.id);
+    if (idx >= 0) {
+      users[idx] = user;
+    } else {
+      users.push(user);
+    }
+    saveUsers(users);
+
     this.loadUsers();
     this.editModal?.hide();
-
     this.showToast(this.editingUser() ? 'Usuario actualizado correctamente' : 'Usuario creado correctamente');
-
-    if (currentUser && currentUser.id === user.id) {
-      this.auth.logout();
-    }
   }
 
   confirmDelete(user: User): void {
-    const currentUser = this.auth.getCurrentUser();
-    if (currentUser && currentUser.id === user.id) {
-      this.errorMsg.set('No puede eliminar su propio usuario');
-      return;
-    }
     this.deletingUser.set(user);
     this.deleteModal?.show();
   }
@@ -153,7 +173,8 @@ export class Usuarios implements OnInit, AfterViewInit, OnDestroy {
   deleteUser(): void {
     const user = this.deletingUser();
     if (!user) return;
-    this.auth.deleteUser(user.id);
+    const users = getUsers().filter((u) => u.id !== user.id);
+    saveUsers(users);
     this.loadUsers();
     this.deleteModal?.hide();
     this.deletingUser.set(null);
@@ -166,7 +187,12 @@ export class Usuarios implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getRoleLabel(role: UserRole): string {
-    return this.auth.getRoleLabel(role);
+    const labels: Record<UserRole, string> = {
+      presidente: 'Presidente',
+      director_tecnico: 'Director Técnico',
+      secretario_tecnico: 'Secretario Técnico',
+    };
+    return labels[role];
   }
 
   getRoleBadgeClass(role: UserRole): string {

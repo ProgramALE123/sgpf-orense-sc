@@ -1,9 +1,7 @@
 import { Component, AfterViewInit, OnDestroy, inject, viewChild, ElementRef } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../core/services/auth.service';
 import { Offcanvas } from 'bootstrap';
-import type { UserRole } from '../../core/models/user.model';
 
 interface NavItem {
   path: string;
@@ -19,7 +17,6 @@ interface NavItem {
   styleUrl: './nadvar.css',
 })
 export class Nadvar implements AfterViewInit, OnDestroy {
-  private auth = inject(AuthService);
   private router = inject(Router);
 
   readonly offcanvasEl = viewChild<ElementRef<HTMLDivElement>>('offcanvasSidebar');
@@ -45,27 +42,6 @@ export class Nadvar implements AfterViewInit, OnDestroy {
     this.offcanvas?.dispose();
   }
 
-  get currentUser() {
-    return this.auth.getCurrentUser();
-  }
-
-  get userRoleLabel(): string {
-    return this.currentUser ? this.auth.getRoleLabel(this.currentUser.role) : '';
-  }
-
-  get userInitial(): string {
-    return this.currentUser?.nombre?.charAt(0)?.toUpperCase() ?? '?';
-  }
-
-  getRoleBadgeClass(role: UserRole): string {
-    const classes: Record<UserRole, string> = {
-      presidente: 'bg-gold',
-      director_tecnico: 'bg-info',
-      secretario_tecnico: 'bg-secondary',
-    };
-    return classes[role];
-  }
-
   openMobile(): void {
     this.offcanvas?.show();
   }
@@ -76,7 +52,6 @@ export class Nadvar implements AfterViewInit, OnDestroy {
 
   logout(): void {
     this.offcanvas?.hide();
-    this.auth.logout();
     this.router.navigate(['/']);
   }
 }
