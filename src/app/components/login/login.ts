@@ -1,7 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth';
+import { finalize, timeout } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +14,8 @@ import { CommonModule } from '@angular/common';
 })
 export class Login {
   private router = inject(Router);
+  private auth = inject(AuthService);
+  private cdr = inject(ChangeDetectorRef);
 
   username = '';
   password = '';
@@ -27,6 +31,17 @@ export class Login {
     }
 
     this.loading = true;
-    this.router.navigate(['/dashboard']);
+    this.auth.login(this.username.trim(), this.password).pipe(
+      timeout(8000),
+      finalize(() => { this.loading = false; this.cdr.detectChanges(); })
+    ).subscribe({
+      next: () => this.router.navigate(['/dashboard']),
+      error: (error) => {
+        this.error = error.name === 'TimeoutError'
+          ? 'El servidor tardó demasiado en responder'
+          : error.error?.mensaje || 'Usuario o contraseña incorrectos';
+        this.cdr.detectChanges();
+      }
+    });
   }
 }

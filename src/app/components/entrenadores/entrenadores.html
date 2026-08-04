@@ -39,7 +39,10 @@
 
         <div class="col-md-4">
           <label>Cargo</label>
-          <input type="text" class="form-control" [(ngModel)]="entrenador.cargo" name="cargo">
+          <select class="form-select" [(ngModel)]="entrenador.cargo" name="cargo" required>
+            <option value="" disabled>Seleccione un cargo</option>
+            <option *ngFor="let cargo of cargos" [value]="cargo">{{ cargo }}</option>
+          </select>
         </div>
 
         <div class="col-md-6">
@@ -54,9 +57,13 @@
 
       </div>
 
+      <div class="alert alert-danger mt-3 mb-0" *ngIf="mensajeError" role="alert">
+        {{ mensajeError }}
+      </div>
+
       <div class="botones-formulario">
-        <button type="button" class="btn btn-success" (click)="guardarEntrenador()">
-          {{ editando ? 'Guardar cambios' : 'Guardar entrenador' }}
+        <button type="button" class="btn btn-success" (click)="guardarEntrenador()" [disabled]="guardando">
+          {{ guardando ? 'Guardando...' : (editando ? 'Guardar cambios' : 'Guardar entrenador') }}
         </button>
 
         <button type="button" class="btn btn-secondary" (click)="cerrarFormulario()">

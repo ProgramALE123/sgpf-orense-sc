@@ -1,59 +1,49 @@
-# SgpfOrenseSc
+# SGPF Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.13.
+Aplicación Angular para la gestión deportiva de Orense SC. Consume la API REST del backend y ofrece módulos de usuarios, jugadores, entrenadores, partidos y alineaciones.
 
-## Development server
+## Requisitos
 
-To start a local development server, run:
+- Node.js 22 o superior.
+- npm.
+- Backend SGPF activo.
 
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Desarrollo local
 
 ```bash
-ng generate component component-name
+npm ci
+npm start
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Abrir `http://localhost:4200`. En desarrollo, la API se consulta en `http://localhost:3000/api`, configurada en `src/environments/environment.ts`.
+
+## Compilación de producción
 
 ```bash
-ng generate --help
+npm ci
+npm run build
 ```
 
-## Building
+La configuración de producción usa `/api` como ruta relativa. El servidor web debe redirigir esa ruta al backend Express. Los archivos compilados se generan dentro de `dist/`.
 
-To build the project run:
+## Organización
+
+- `src/app/components`: pantallas y formularios.
+- `src/app/services`: comunicación y transformación de datos de la API.
+- `src/app/guards`: protección de rutas por sesión y rol.
+- `src/app/interceptors`: envío del JWT en las peticiones.
+- `src/environments`: configuración de desarrollo y producción.
+- `public`: recursos estáticos.
+
+## Autenticación
+
+El login obtiene un JWT del backend. `authInterceptor` envía ese token como `Authorization: Bearer <token>`. `authGuard` exige una sesión válida y `roleGuard` controla las pantallas disponibles según el rol.
+
+## Verificación
 
 ```bash
-ng build
+npm run build
+npm test
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+La explicación completa del sistema y el proceso de publicación se encuentra en `../DOCUMENTACION_EQUIPO.md`.
