@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {Entrenador, EntrenadoresService} from '../../services/entrenadores';
@@ -15,6 +15,9 @@ export class Entrenadores {
   indiceEditar: number = -1;
 
   entrenadorSeleccionado: Entrenador | null = null;
+  mensajeError = '';
+  guardando = false;
+  readonly cargos = ['Director Técnico', 'Asistente Técnico', 'Preparador Físico', 'Entrenador de Arqueros'];
 
   entrenador: Entrenador = {
     nombres: '',
@@ -28,25 +31,41 @@ export class Entrenadores {
 
   entrenadores: Entrenador[] = [];
 
-  constructor(private entrenadoresService: EntrenadoresService) {
-    this.entrenadores = this.entrenadoresService.obtenerEntrenadores();
-  }
+  constructor(private entrenadoresService: EntrenadoresService, private cdr: ChangeDetectorRef) { this.cargarEntrenadores(); }
+  cargarEntrenadores(): void { this.entrenadoresService.obtenerEntrenadores().subscribe({ next: entrenadores => { this.entrenadores = entrenadores; this.cdr.detectChanges(); }, error: error => console.error('Error al cargar entrenadores', error) }); }
 
   abrirFormulario(): void {
     this.mostrarFormulario = true;
     this.editando = false;
+    this.mensajeError = '';
     this.limpiarFormulario();
   }
 
   guardarEntrenador(): void {
-    if (this.editando) {
-      this.entrenadoresService.editarEntrenador(this.indiceEditar, this.entrenador);
-    } else {
-      this.entrenadoresService.agregarEntrenador(this.entrenador);
+    this.mensajeError = '';
+    if (!this.entrenador.nombres.trim() || !this.entrenador.apellidos.trim() ||
+        !this.entrenador.cedula.trim() || !this.entrenador.cargo) {
+      this.mensajeError = 'Nombres, apellidos, cédula y cargo son obligatorios.';
+      return;
     }
 
-    this.entrenadores = this.entrenadoresService.obtenerEntrenadores();
-    this.cerrarFormulario();
+    this.guardando = true;
+    const peticion = this.editando
+      ? this.entrenadoresService.editarEntrenador(this.entrenador)
+      : this.entrenadoresService.agregarEntrenador(this.entrenador);
+
+    peticion.subscribe({
+      next: () => {
+        this.guardando = false;
+        this.cerrarFormulario();
+        this.cargarEntrenadores();
+      },
+      error: error => {
+        this.guardando = false;
+        this.mensajeError = error?.error?.message || 'No se pudo guardar el entrenador.';
+        this.cdr.detectChanges();
+      }
+    });
   }
 
   editarEntrenador(indice: number): void {
@@ -54,11 +73,11 @@ export class Entrenadores {
     this.indiceEditar = indice;
     this.editando = true;
     this.mostrarFormulario = true;
+    this.mensajeError = '';
   }
 
   eliminarEntrenador(indice: number): void {
-    this.entrenadoresService.eliminarEntrenador(indice);
-    this.entrenadores = this.entrenadoresService.obtenerEntrenadores();
+    this.entrenadoresService.eliminarEntrenador(this.entrenadores[indice]).subscribe(() => this.cargarEntrenadores());
   }
 
   verMas(entrenador: Entrenador): void {
@@ -75,6 +94,7 @@ export class Entrenadores {
     this.mostrarFormulario = false;
     this.editando = false;
     this.indiceEditar = -1;
+    this.mensajeError = '';
     this.limpiarFormulario();
   }
 

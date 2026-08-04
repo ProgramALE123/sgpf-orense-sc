@@ -20,12 +20,17 @@
 
                 <div class="col-md-6">
                     <label>Equipo rival</label>
-                    <input type="text" class="form-control" [(ngModel)]="partido.rival" name="rival" placeholder="Ej: Barcelona SC">
+                    <select class="form-select" [(ngModel)]="partido.rival" name="rival" (ngModelChange)="actualizarEstadio()">
+                        <option value="" disabled>Seleccione un equipo rival</option>
+                        <option *ngFor="let rival of rivales" [value]="rival.nombre">{{ rival.nombre }}</option>
+                    </select>
                 </div>
 
                 <div class="col-md-6">
                     <label>Torneo</label>
-                    <input type="text" class="form-control" [(ngModel)]="partido.torneo" name="torneo" placeholder="Ej: Liga Pro Serie A">
+                    <select class="form-select" [(ngModel)]="partido.torneo" name="torneo">
+                        <option *ngFor="let torneo of torneos" [value]="torneo">{{ torneo }}</option>
+                    </select>
                 </div>
 
                 <div class="col-md-4">
@@ -35,7 +40,7 @@
 
                 <div class="col-md-4">
                     <label>Condición</label>
-                    <select class="form-select" [(ngModel)]="partido.condicion" name="condicion">
+                    <select class="form-select" [(ngModel)]="partido.condicion" name="condicion" (ngModelChange)="actualizarEstadio()">
             <option value="Local">Local</option>
             <option value="Visitante">Visitante</option>
           </select>
@@ -48,14 +53,16 @@
 
                 <div class="col-md-12">
                     <label>Lugar</label>
-                    <input type="text" class="form-control" [(ngModel)]="partido.lugar" name="lugar" placeholder="Ej: Estadio 9 de Mayo, Machala">
+                    <input type="text" class="form-control" [(ngModel)]="partido.lugar" name="lugar" readonly>
                 </div>
 
             </div>
 
+            <div class="alert alert-danger mt-3 mb-0" *ngIf="mensajeError" role="alert">{{ mensajeError }}</div>
+
             <div class="botones-formulario">
-                <button type="button" class="btn btn-success" (click)="guardarPartido()">
-          {{ editando ? 'Guardar cambios' : 'Guardar partido' }}
+                <button type="button" class="btn btn-success" (click)="guardarPartido()" [disabled]="guardando">
+          {{ guardando ? 'Guardando...' : (editando ? 'Guardar cambios' : 'Guardar partido') }}
         </button>
                 <button type="button" class="btn btn-secondary" (click)="cerrarFormulario()">
           Cancelar
@@ -96,7 +103,8 @@
 
                 <div class="equipo">
                     <div class="escudo rival-escudo">
-                        <i class="bi bi-shield-fill"></i>
+                        <img *ngIf="p.rivalFoto; else escudoGenerico" [src]="p.rivalFoto" [alt]="p.rival" style="width:100%;height:100%;object-fit:cover;border-radius:50%" />
+                        <ng-template #escudoGenerico><i class="bi bi-shield-fill"></i></ng-template>
                     </div>
                     <span class="equipo-nombre">{{ p.rival }}</span>
                 </div>

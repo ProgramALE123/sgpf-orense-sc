@@ -39,7 +39,7 @@
         <thead>
           <tr>
             <th>Usuario</th>
-            <th>Nombre</th>
+            <th>Correo</th>
             <th>Rol</th>
             <th>Estado</th>
             <th class="text-end">Acciones</th>
@@ -49,9 +49,7 @@
           <tr *ngFor="let user of filteredUsers">
             <td>
               <div class="d-flex align-items-center gap-2">
-                <div class="avatar-circle">
-                  {{ user.nombre.charAt(0).toUpperCase() }}
-                </div>
+                <img class="avatar-circle" [src]="user.foto" [alt]="user.username" />
                 <span>{{ user.username }}</span>
               </div>
             </td>
@@ -103,14 +101,14 @@
       </div>
       <div class="modal-body">
         <div class="mb-3">
-          <label for="inputNombre" class="form-label" style="color: #333; font-weight: bold;">Nombre completo</label>
+          <label for="inputNombre" class="form-label" style="color: #333; font-weight: bold;">Correo electrónico</label>
           <input
             #nameInput
             type="text"
             id="inputNombre"
             class="form-control"
             [(ngModel)]="form.nombre"
-            placeholder="Nombre y apellido"
+            placeholder="usuario@correo.com"
           />
         </div>
         <div class="mb-3">

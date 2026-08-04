@@ -16,6 +16,14 @@
   border: 1px solid var(--border-color);
 }
 
+@media (max-width: 575.98px) {
+  .login-wrapper { align-items: flex-start; padding: 20px 12px; padding-top: max(28px, env(safe-area-inset-top)); }
+  .login-card { max-width: none; padding: 1.6rem 1.2rem; border-radius: 16px; }
+  .logo-circle { width: 60px; height: 60px; }
+  .login-header h2 { font-size: 1.45rem; }
+  .form-control, .btn { min-height: 46px; }
+}
+
 .login-header {
   text-align: center;
   margin-bottom: 2rem;
@@ -55,6 +63,12 @@
   box-shadow: 0 0 0 0.2rem rgba(212, 168, 67, 0.25);
   border-color: var(--primary-gold);
 }
+
+.password-field { position: relative; }
+.password-field .form-control { padding-right: 3.25rem; }
+.password-toggle { position:absolute; top:50%; right:.35rem; transform:translateY(-50%); width:42px; height:42px; display:grid; place-items:center; border:0; border-radius:9px; color:var(--primary-gold); background:transparent; font-size:1.15rem; cursor:pointer; }
+.password-toggle:hover, .password-toggle:focus-visible { background:rgba(212,168,67,.14); outline:2px solid rgba(212,168,67,.4); }
+.password-field input::-ms-reveal, .password-field input::-ms-clear { display:none; }
 
 .cred-list {
   display: flex;

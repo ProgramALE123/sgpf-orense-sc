@@ -62,6 +62,7 @@ label {
 }
 
 .jugador-card {
+  position: relative;
   background-color: #ffffff;
   border-radius: 14px;
   padding: 22px;
@@ -197,3 +198,13 @@ label {
   color: #123d25;
   cursor: pointer;
 }
+.jugador-card { animation: cardIn .35s ease both; transition: transform .2s ease, box-shadow .2s ease; }
+.jugador-card:hover { transform: translateY(-5px); box-shadow: 0 12px 28px rgba(18,61,37,.16); }
+.estado-badge { position:absolute; top:14px; right:14px; padding:5px 10px; border-radius:20px; font-size:11px; font-weight:800; }
+.estado-disponible { background:#dff5e8; color:#13753c; }.estado-lesionado { background:#fde2e2; color:#b42318; }.estado-suspendido { background:#eee; color:#555; }.estado-recuperacion { background:#fff0c2; color:#8a6300; }
+.resumen-plantilla { display:flex; align-items:center; gap:18px; background:#fff; padding:14px 20px; border-radius:12px; margin-bottom:22px; box-shadow:0 3px 12px rgba(0,0,0,.06); }
+.resumen-plantilla div { display:flex; flex-direction:column; min-width:95px; }.resumen-plantilla strong { color:#123d25; font-size:24px; }.resumen-plantilla span { color:#777; font-size:12px; }.resumen-plantilla label { margin-left:auto; min-width:190px; }
+.condicion { text-align:left; font-size:11px; color:#667; margin:0 0 16px; }.condicion strong { float:right; color:#123d25; }.condicion-bar { height:6px; background:#e7ece8; border-radius:10px; overflow:hidden; clear:both; }.condicion-bar i { display:block; height:100%; background:linear-gradient(90deg,#b59a52,#198754); border-radius:10px; transition:width .5s ease; }
+.nota-medica { margin-top:16px; padding:10px; background:#fff7dd; color:#6b5200; border-radius:8px; font-size:13px; }
+@keyframes cardIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
+@media(max-width:650px){.resumen-plantilla{flex-wrap:wrap}.resumen-plantilla label{margin-left:0;width:100%}}

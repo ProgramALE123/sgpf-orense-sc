@@ -1,66 +1,24 @@
-import { Injectable } from '@angular/core';
-
-@Injectable({
-  providedIn: 'root',
-})
-export class EntrenadoresService {
-   private entrenadores: Entrenador[] = [
-    {
-      nombres: 'Juan',
-      apellidos: 'Pérez',
-      cedula: '0700000001',
-      telefono: '0999999991',
-      correo: 'juan.perez@orense.com',
-      cargo: 'Director Técnico',
-      foto: 'https://ui-avatars.com/api/?name=Juan+Perez&background=123d25&color=fff'
-    },
-    {
-      nombres: 'Carlos',
-      apellidos: 'Ramírez',
-      cedula: '0700000002',
-      telefono: '0999999992',
-      correo: 'carlos.ramirez@orense.com',
-      cargo: 'Asistente Técnico',
-      foto: 'https://ui-avatars.com/api/?name=Carlos+Ramirez&background=123d25&color=fff'
-    },
-    {
-      nombres: 'Miguel',
-      apellidos: 'Torres',
-      cedula: '0700000003',
-      telefono: '0999999993',
-      correo: 'miguel.torres@orense.com',
-      cargo: 'Preparador Físico',
-      foto: 'https://ui-avatars.com/api/?name=Miguel+Torres&background=123d25&color=fff'
-    }
-  ];
-
-  obtenerEntrenadores(): Entrenador[] {
-    return this.entrenadores;
-  }
-
-  obtenerTotalEntrenadores(): number {
-    return this.entrenadores.length;
-  }
-
-  agregarEntrenador(entrenador: Entrenador): void {
-    this.entrenadores.push({ ...entrenador });
-  }
-
-  editarEntrenador(indice: number, entrenador: Entrenador): void {
-    this.entrenadores[indice] = { ...entrenador };
-  }
-
-  eliminarEntrenador(indice: number): void {
-    this.entrenadores.splice(indice, 1);
-  }
-}
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, map } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface Entrenador {
-  nombres: string;
-  apellidos: string;
-  cedula: string;
-  telefono: string;
-  correo: string;
-  cargo: string;
-  foto: string;
+  id?: string; version?: number; nombres: string; apellidos: string; cedula: string;
+  telefono: string; correo: string; cargo: string; fecha_ingreso?: string;
+  activo?: boolean; foto_url?: string; foto: string;
+}
+
+interface Respuesta { entrenadores: Entrenador[] }
+const completar = (e: Entrenador): Entrenador => ({ ...e, foto: e.foto_url || e.foto || `https://ui-avatars.com/api/?name=${encodeURIComponent(`${e.nombres} ${e.apellidos}`)}&background=123d25&color=fff` });
+const paraApi = (e: Entrenador) => ({ nombres: e.nombres, apellidos: e.apellidos, cedula: e.cedula, telefono: e.telefono || null, correo: e.correo || null, cargo: e.cargo, fecha_ingreso: e.fecha_ingreso || new Date().toISOString().slice(0, 10), foto_url: e.foto || null, activo: e.activo ?? true });
+
+@Injectable({ providedIn: 'root' })
+export class EntrenadoresService {
+  private readonly http = inject(HttpClient);
+  private readonly url = `${environment.apiUrl}/entrenadores`;
+  obtenerEntrenadores(): Observable<Entrenador[]> { return this.http.get<Respuesta>(this.url).pipe(map(r => r.entrenadores.map(completar))); }
+  agregarEntrenador(e: Entrenador): Observable<Entrenador> { return this.http.post<{ entrenador: Entrenador }>(this.url, paraApi(e)).pipe(map(r => completar(r.entrenador))); }
+  editarEntrenador(e: Entrenador): Observable<Entrenador> { return this.http.patch<{ entrenador: Entrenador }>(`${this.url}/${e.id}`, { ...paraApi(e), version: e.version }).pipe(map(r => completar(r.entrenador))); }
+  eliminarEntrenador(e: Entrenador): Observable<void> { return this.http.delete<void>(`${this.url}/${e.id}`, { body: { version: e.version } }); }
 }
